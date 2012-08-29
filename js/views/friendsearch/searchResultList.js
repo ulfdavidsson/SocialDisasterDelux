@@ -25,8 +25,7 @@ define([
 		{
 			this.views[i].remove();
 		}
-		
-		
+	
 	  	for(var i in this.collection.models)
 		{
 			userModel = this.collection.models[i];

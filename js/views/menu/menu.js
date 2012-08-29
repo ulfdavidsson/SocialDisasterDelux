@@ -7,7 +7,7 @@ define([
 ], function($, _, Backbone, menuTemplate){
 
   var menuView = Backbone.View.extend({
-    el: $("#menu"),
+    el: $("#navmenu"),
     render: function(){
       this.el.html(menuTemplate);
     }
