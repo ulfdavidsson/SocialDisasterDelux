@@ -35,5 +35,35 @@ require([
   'app',
   'facebookWrapper'
 ], function(App,facebookWrapper){
-  App.initialize();
+	facebookWrapper.run(function(FB){
+		
+		FB.Event.subscribe('auth.authResponseChange', function(response) {
+		  $('#logger').append("<p>polling</p>");
+			if (response.status === 'connected') {
+					// the user is logged in and connected to your
+					// app, and response.authResponse supplies
+					// the user's ID, a valid access token, a signed
+					// request, and the time the access token 
+					// and signed request each expire
+					var uid = response.authResponse.userID;
+					var accessToken = response.authResponse.accessToken;
+					
+					//set logedin user
+					FB.api('/me', function(response) {
+					  if (response.name != undefined ) {
+
+						$('#logger').append("<p>"+"Welcome, " + response.name+"</p>");
+					  }         
+					});
+					
+			} else if (response.status === 'not_authorized') {
+					// the user is logged in to Facebook, 
+					// but not connected to the app
+			} else {
+					$('#logger').append("<p>notlogedin yet</p>");
+			}
+		  
+		});
+	});
+	App.initialize();
 });
