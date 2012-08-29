@@ -10,25 +10,26 @@ define([
 ], function($, _, Backbone,facebookWrapper,mainHomeView,friendSerachView,loginFailedView){
 	var AuthenticatedRouter = Backbone.Router.extend({
 		requireLogin : function(ifYes) {
+				rout = this;
 				facebookWrapper.run(function(FB){
 					FB.getLoginStatus(function(response) {
 						if (response.status === 'connected') {
 							if ($.isFunction(ifYes)) ifYes.call(this);	
 						} else if (response.status === 'not_authorized') {
-							//this.navigate('loginfailed', true);
+							rout.navigate('loginfailed', true);
 						} else {
-							//this.navigate('loginfailed', true);
+							rout.navigate('loginfailed', true);
 						}
 					});
 				}); 
 				
 	  }
 	});
-  
+	  
 	var AppRouter = AuthenticatedRouter.extend({
 		routes : {
 		    'loginfailed' : 'loginfailed',
-			'friendserach' : 'friendserach',
+			'friendsearch' : 'friendsearch',
 			// Default
 		    '*actions': 'defaultAction'
 		},
@@ -36,7 +37,7 @@ define([
 		  // We have no matching route, lets display the home page
 		  mainHomeView.render();
 		},
-		friendserach : function() {
+		friendsearch : function() {
 			this.requireLogin(function() {
 				friendSerachView.render(); 
 			});
@@ -49,6 +50,23 @@ define([
   var initialize = function(){
   
     var app_router = new AppRouter;
+	
+	facebookWrapper.run(function(FB){
+		FB.Event.subscribe('auth.login',
+			function(response) {
+				app_router.navigate('friendsearch', true);
+		});
+
+	}); 
+	
+	facebookWrapper.run(function(FB){
+		FB.Event.subscribe('auth.logout',
+			function(response) {
+				app_router.navigate('', true);
+		});
+
+	}); 
+	
     Backbone.history.start();
   };
   return {

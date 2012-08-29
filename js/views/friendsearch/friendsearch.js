@@ -27,6 +27,7 @@ define([
 	
 		this.el.html(friendSerachTemplate);
 		$("#searchField").html(searchFieldView.render());
+		
 		$("#searchResult").html(searchResultListView.render());
     }
   });
