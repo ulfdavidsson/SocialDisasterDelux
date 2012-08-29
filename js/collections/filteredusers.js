@@ -4,7 +4,7 @@ define([
   'backbone',
   'models/user',
 ], function($, _, Backbone, userModel){
-  var usersCollection = Backbone.Collection.extend({
+  var filteredUsersCollection = Backbone.Collection.extend({
     model: userModel,
     initialize: function(){
 
@@ -29,6 +29,5 @@ define([
 	}
 
   });
-
-  return new usersCollection;
+  return new filteredUsersCollection;
 });

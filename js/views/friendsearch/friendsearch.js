@@ -7,8 +7,9 @@ define([
   'views/friendsearch/searchField',
   'views/friendsearch/searchResultList',
   'collections/users',
+  'collections/filteredusers',
   'facebookWrapper',
-], function($, _, Backbone, friendSerachTemplate,searchFieldView,searchResultListView,usersCollection,facebookWrapper){
+], function($, _, Backbone, friendSerachTemplate,searchFieldView,searchResultListView,usersCollection,filteredUsersCollection,facebookWrapper){
 
   var friendSerachView = Backbone.View.extend({
     el: $("#page"),
@@ -21,7 +22,8 @@ define([
     render: function(){
 		facebookWrapper.run(function(FB){
 			FB.api('/me/friends', {fields: 'name,id'}, function(response) {
-				this.collection = usersCollection.addList(response.data);
+				usersCollection.addList(response.data);
+				filteredUsersCollection.addList(response.data);					
 			});
 		}); 
 	

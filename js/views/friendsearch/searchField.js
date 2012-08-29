@@ -5,16 +5,16 @@ define([
   'backbone',
   'text!templates/friendsearch/searchField.html',
   'collections/users',
-], function($, _, Backbone, friendSerachFieldTemplate, usersCollection){
+  'collections/filteredusers',
+], function($, _, Backbone, friendSerachFieldTemplate, usersCollection,filteredUsersCollection){
 
   var friendSerachView = Backbone.View.extend({
     tag: "div",
 	events: {
-		"keypress #searchFieldInput" : "search"  
+		"keyup #searchFieldInput" : "search"  
 		
     },
     initialize: function(){
-		this.collection = usersCollection;
     },  
     render: function(){
 
@@ -26,15 +26,20 @@ define([
     },
 	search : function(){
 		
+		stringToFind = $("#searchFieldInput").val().toLowerCase();
 		
-
-		var usersWithE = _.filter(usersCollection, function(user){
-							if(user.indexOf("e") != -1)
-							{
-								return user;
-							} 
-						});
+		filteredUsersCollection.reset();	
 		
+		for(var i in usersCollection.models)
+		{
+			userModel = usersCollection.models[i];
+			name = userModel.attributes.name.toLowerCase();
+			if(name.indexOf(stringToFind) !== -1)
+			{
+				filteredUsersCollection.add(userModel,{silent: true});
+			}
+		}	
+		filteredUsersCollection.trigger("add");
 
 	} 
   });

@@ -1,0 +1,22 @@
+.userListItem{
+	padding:5px;
+	background-color:#FFFFFF;
+	margin:5px;
+	border-radius: 3px;
+}
+.userListItem :hover{
+	background-color:#FAC33B;
+}
+.userListItem img{
+	margin-right:5px;
+	height:50px;
+}
+
+.userListItem p{
+	margin:0px;
+	padding:0px;
+}
+
+#searchFieldInput{margin-top:5px;}
+
+.dropdown-menu li a{color:#333;}
