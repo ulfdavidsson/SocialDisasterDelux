@@ -20,6 +20,7 @@ require.config({
     jquery: 'libs/jquery/jquery-min',
     twitterbootstrap: 'libs/twitter/bootstrap.min',
     twitterbootstrapmodal: 'libs/twitter/bootstrap-modal',
+	facebookWrapper: 'libs/facebook/facebook-wrapper',
     amplify: 'libs/amplify/amplify.min',
     underscore: 'libs/underscore/underscore-min',
     backbone: 'libs/backbone/backbone-optamd3-min',
@@ -31,7 +32,8 @@ require.config({
 });
 
 require([
-  'app'
-], function(App){
+  'app',
+  'facebookWrapper'
+], function(App,facebookWrapper){
   App.initialize();
 });
