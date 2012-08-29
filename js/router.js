@@ -5,7 +5,7 @@ define([
   'backbone',
   'facebookWrapper',
   'views/home/main',
-  'views/friendSerach/friendSerach',
+  'views/friendSearch/friendSearch',
   'views/loginfailed',
 ], function($, _, Backbone,facebookWrapper,mainHomeView,friendSerachView,loginFailedView){
 	var AuthenticatedRouter = Backbone.Router.extend({
