@@ -34,7 +34,8 @@ require.config({
 });
 
 require([
-  'app'
+  'app',
+  'facebookWrapper'
 ], function(App){
-	App.initialize();
+		App.initialize();
 });

@@ -4,9 +4,8 @@ define([
   'underscore',
   'backbone',
   'text!templates/user/list.html',
-  'collections/users',
-  'facebookWrapper',
-], function($, _, Backbone, userListTemplate, usersCollection,facebookWrapper){
+  'collections/users'
+], function($, _, Backbone, userListTemplate, usersCollection){
 
   var userListView = Backbone.View.extend({
     el: $("#page"),

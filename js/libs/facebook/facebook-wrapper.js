@@ -4,7 +4,14 @@ define([
   'backbone'
 ], function($, _, Backbone){
 
-	//Wrapper object that allows us to run facebook request
+	(function() {
+        var e = document.createElement('script'); e.async = true;
+        e.src = document.location.protocol +
+          '//connect.facebook.net/en_US/all.js';
+        document.getElementById('fb-root').appendChild(e);
+      }());
+
+	//Wrapper object that allows to run facebook request from outside 
 	wrapper = {
 		currentUserId : -1,
 		init : function (){
@@ -43,13 +50,7 @@ define([
 		// Additional initialization code here
 	};
 
-    (function() {
-        var e = document.createElement('script'); e.async = true;
-        e.src = document.location.protocol +
-          '//connect.facebook.net/en_US/all.js';
-        document.getElementById('fb-root').appendChild(e);
-      }());
-
+  
   return wrapper;
 });
 

@@ -5,54 +5,30 @@ define([
   'backbone',
   'facebookWrapper',
   'views/home/main',
-  'views/user/profile',
-  'views/user/list',
+  'views/friendSerach/friendSerach',
   'views/loginfailed',
-], function($, _, Backbone,facebookWrapper,mainHomeView,userProfileView,userListView,loginFailedView){
-
+], function($, _, Backbone,facebookWrapper,mainHomeView,friendSerachView,loginFailedView){
 	var AuthenticatedRouter = Backbone.Router.extend({
 		requireLogin : function(ifYes) {
-		
-			if(facebookWrapper.currentUserLoggedIn()){
-				if ($.isFunction(ifYes)) ifYes.call(this);
-			}
-			else{ 
 				facebookWrapper.run(function(FB){
-					FB.Event.subscribe('auth.authResponseChange', function(response) {
+					FB.getLoginStatus(function(response) {
 						if (response.status === 'connected') {
-				
-								uid = response.authResponse.userID;
-								accessToken = response.authResponse.accessToken;
-								
-								facebookWrapper.currentUserId = uid;
-								
-								//set logedin user
-								FB.api('/me', function(response) {
-									if (response.name != undefined ) {
-										if ($.isFunction(ifYes)) ifYes.call(this);
-									}         
-								});
-								
+							if ($.isFunction(ifYes)) ifYes.call(this);	
 						} else if (response.status === 'not_authorized') {
-								// the user is logged in to Facebook, 
-								// but not connected to the app
-								this.navigate('loginfailed', true);
-								facebookWrapper.currentUserReset();
+							//this.navigate('loginfailed', true);
 						} else {
-								this.navigate('loginfailed', true);
-								facebookWrapper.currentUserReset();
+							//this.navigate('loginfailed', true);
 						}
 					});
-				});
-			}	
+				}); 
+				
 	  }
 	});
   
 	var AppRouter = AuthenticatedRouter.extend({
 		routes : {
 		    'loginfailed' : 'loginfailed',
-			'userprofile' : 'userprofile',
-			'userlist' : 'userlist',
+			'friendserach' : 'friendserach',
 			// Default
 		    '*actions': 'defaultAction'
 		},
@@ -60,14 +36,9 @@ define([
 		  // We have no matching route, lets display the home page
 		  mainHomeView.render();
 		},
-		userprofile : function() {
+		friendserach : function() {
 			this.requireLogin(function() {
-				userProfileView.render(); 
-			});
-		},
-		userlist : function() {
-			this.requireLogin(function() {
-				userListView.render(); 
+				friendSerachView.render(); 
 			});
 		},
 		loginfailed : function() {
