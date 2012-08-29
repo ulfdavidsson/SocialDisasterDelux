@@ -6,8 +6,9 @@ define([
 
 	//Wrapper object that allows us to run facebook request
 	wrapper = {
+		currentUserId : -1,
 		init : function (){
-		 FB.init({
+		FB.init({
 			  appId: '425059737529132',
 			  cookie: true,
 			  xfbml: true,
@@ -15,7 +16,24 @@ define([
 			});
 		},
 		run : function(callback) { 
-			callback(FB);
+			if(window.fbAsyncInit !== undefined)
+			{
+				callback(FB);
+			}
+			
+		},
+		currentUserLoggedIn : function(){
+			
+			if(this.currentUserId != -1){ 
+				return true;
+			}
+			else{
+				return false;
+			}
+		},
+		currentUserReset: function()
+		{
+			this.currentUserId = -1;
 		}
 	};
 
