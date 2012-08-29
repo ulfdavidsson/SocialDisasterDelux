@@ -4,27 +4,39 @@ define([
   'underscore',
   'backbone',
   'text!templates/friendsearch/searchField.html',
-
-], function($, _, Backbone, friendSerachFieldTemplate){
+  'collections/users',
+], function($, _, Backbone, friendSerachFieldTemplate, usersCollection){
 
   var friendSerachView = Backbone.View.extend({
     tag: "div",
 	events: {
-		"keypress #searchFieldInput" : "serach"  
+		"keypress #searchFieldInput" : "search"  
 		
     },
     initialize: function(){
+		this.collection = usersCollection;
     },  
     render: function(){
+
 		var compiledTemplate = _.template(friendSerachFieldTemplate);
 		$(this.el).html(compiledTemplate); 
 
       return this.el;
 	  
     },
-	serach : function(){
+	search : function(){
+		
+		
 
-	}
+		var usersWithE = _.filter(usersCollection, function(user){
+							if(user.indexOf("e") != -1)
+							{
+								return user;
+							} 
+						});
+		
+
+	} 
   });
   return new friendSerachView;
 });

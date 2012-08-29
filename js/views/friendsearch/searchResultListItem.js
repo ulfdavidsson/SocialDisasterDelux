@@ -3,20 +3,30 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'text!templates/friendserach/friendserach.html',
+  'models/user',
+  'text!templates/friendsearch/searchResultListItem.html',
 
-], function($, _, Backbone, friendSerachTemplate){
+], function($, _, Backbone,userModel, searchResultListItemTemplate){
 
-  var friendSerachView = Backbone.View.extend({
-    el: $("#page"),
+  var searchResultListItemView = Backbone.View.extend({
+    tag: "li",
 	events: {
       
     },
     initialize: function(){
     },  
     render: function(){
-      this.el.html(friendSerachTemplate);
+	
+	 var data = {
+        userModel : this.model,
+        _: _
+      };
+	
+	  var compiledTemplate = _.template(searchResultListItemTemplate,data);
+	  $(this.el).html(compiledTemplate); 
+
+      return this.el;
     }
   });
-  return new friendSerachView;
+  return searchResultListItemView;
 });

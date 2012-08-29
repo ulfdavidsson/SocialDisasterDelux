@@ -3,21 +3,20 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'text!templates/user/list.html',
-  'collections/users'
-], function($, _, Backbone, userListTemplate, usersCollection){
+  'text!templates/user/listItem.html',
+  'models/user',
+], function($, _, Backbone, userListItemTemplate, userModel){
 
-  var userListView = Backbone.View.extend({
-    el: $("#page"),
+  var userListItemView = Backbone.View.extend({
+    tag: "li",
 	events: {
       
     },
     initialize: function(){
-      this.collection = usersCollection;
     },  
     render: function(){
-      this.el.html(userListTemplate);
+      this.el.html(userListItemTemplate);
     }
   });
-  return new userListView;
+  return new userListItemView;
 });

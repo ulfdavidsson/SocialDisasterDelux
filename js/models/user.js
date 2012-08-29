@@ -4,8 +4,8 @@ define([
 ], function(_, Backbone) {
   var userModel = Backbone.Model.extend({
     defaults: {
-      firstName: "first",
-	  lastName: "last",
+      name: "name",
+	  imageUri:"",
       id: -1
     },
     initialize: function(){
