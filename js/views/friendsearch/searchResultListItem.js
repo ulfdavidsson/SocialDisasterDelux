@@ -9,7 +9,7 @@ define([
 ], function($, _, Backbone,userModel, searchResultListItemTemplate){
 
   var searchResultListItemView = Backbone.View.extend({
-    tag: "li",
+    tagName: "li",
 	events: {
       
     },

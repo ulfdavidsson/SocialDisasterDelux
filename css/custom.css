@@ -16,7 +16,26 @@
 .userListItem p{
 	margin:0px;
 	padding:0px;
+	font-weight:bold;
+	color:#333;
 }
+
+#searchResultBox{
+	background-color:#EEE;
+	padding:5px 15px;
+	border-radius:5px;
+	
+	}
+
+#searchResult{ list-style-type: none;}
+	
+#searchFieldBox{
+	background-color:#EEE;
+	padding:5px 15px;
+	border-radius:5px;
+	margin-bottom:10px;
+}
+#searchResultBox h3{ margin:5px;}
 
 #searchFieldInput{margin-top:5px;}
 
