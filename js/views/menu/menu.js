@@ -14,7 +14,7 @@ define([
 		'click #logoutAction' : 'logout',
     },
 	initialize: function(){
-	
+
     },  
 	login: function(){
 		facebookWrapper.run(function(FB){
@@ -29,7 +29,24 @@ define([
 	},
     render: function(){
 		this.el.html(menuTemplate);
+		$("#loginAction").hide();
+		$("#logoutAction").hide();
+		
 		facebookWrapper.run(function(FB){
+		
+		FB.getLoginStatus(function(response) {
+		  if (response.status === 'connected') {
+				$("#loginAction").hide();
+				$("#logoutAction").show();
+		  } else if (response.status === 'not_authorized') {
+				$("#loginAction").show();
+				$("#logoutAction").hide();
+		  } else {
+				$("#loginAction").show();
+				$("#logoutAction").hide();
+		  }
+		 });
+		
 			FB.Event.subscribe('auth.authResponseChange', function(response) {
 				if(response.status == 'connected')
 				{ 
